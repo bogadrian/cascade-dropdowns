@@ -42,7 +42,9 @@ const FilterHocMiddle = ({
 
   useEffect(() => {
     const countriesForSelect = data.filter(s => {
-      return s.types.includes(selectedStoreType);
+      return (
+        s.types.includes(selectedStoreType) && s.types[0] === selectedStoreType
+      );
     });
     const countriesSelect = Array.from(
       new Set(countriesForSelect.map(c => c.country))
@@ -58,7 +60,10 @@ const FilterHocMiddle = ({
 
   useEffect(() => {
     const provincesForSelect = data.filter(el => {
-      return el.country.includes(selectedCountry);
+      return (
+        el.country.includes(selectedCountry) &&
+        el.types[0] === selectedStoreType
+      );
     });
     const provincesSelect = Array.from(
       new Set(provincesForSelect.map(c => c.province))
@@ -75,7 +80,9 @@ const FilterHocMiddle = ({
   useEffect(() => {
     const citiesForSelect = data?.filter(el => {
       return (
-        el.province.includes(selectedProvince) && el.country === selectedCountry
+        el.province.includes(selectedProvince) &&
+        el.country === selectedCountry &&
+        el.types[0] === selectedStoreType
       );
     });
     const citiesSelect = Array.from(new Set(citiesForSelect.map(c => c.city)));
@@ -124,7 +131,11 @@ const FilterHocMiddle = ({
     const value = e.target.value;
 
     const filteredData = data2.filter(s => {
-      return s.city.includes(value) && s.country === selectedCountry;
+      return (
+        s.city.includes(value) &&
+        s.country === selectedCountry &&
+        s.types[0] === selectedStoreType
+      );
     });
 
     if (filteredData?.length > 0) setData3(filteredData);

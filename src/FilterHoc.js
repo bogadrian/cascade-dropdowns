@@ -37,7 +37,7 @@ const FilterHoc = () => {
       return dat?.store_code?.toLowerCase().includes(value.toLowerCase());
     });
 
-    setData(searchTermData);
+    searchTermData?.length > 0 ? setData(searchTermData) : setData([]);
   };
 
   const resetMain = () => {
@@ -49,7 +49,7 @@ const FilterHoc = () => {
   };
   return (
     <div>
-      {data?.length > 0 && (
+      {Array.isArray(data) && (
         <FilterHocMiddle
           data={data}
           handleOnChangeOwned={handleOnChangeOwned}
