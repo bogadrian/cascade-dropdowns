@@ -121,7 +121,11 @@ const FilterHocMiddle = ({
     const value = e.target.value;
 
     const filteredData = data.filter(s => {
-      return s.province.includes(value) && s.country === selectedCountry;
+      return (
+        s.province.includes(value) &&
+        s.country === selectedCountry &&
+        s.types[0] === selectedStoreType
+      );
     });
 
     if (filteredData?.length > 0) setData2(filteredData);
