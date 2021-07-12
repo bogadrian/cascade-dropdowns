@@ -60,10 +60,7 @@ const FilterHocMiddle = ({
 
   useEffect(() => {
     const provincesForSelect = data.filter(el => {
-      return (
-        el.country.includes(selectedCountry) &&
-        el.types[0] === selectedStoreType
-      );
+      return el.country.includes(selectedCountry);
     });
     const provincesSelect = Array.from(
       new Set(provincesForSelect.map(c => c.province))
@@ -79,11 +76,7 @@ const FilterHocMiddle = ({
 
   useEffect(() => {
     const citiesForSelect = data?.filter(el => {
-      return (
-        el.province.includes(selectedProvince) &&
-        el.country === selectedCountry &&
-        el.types[0] === selectedStoreType
-      );
+      return el.province.includes(selectedProvince);
     });
     const citiesSelect = Array.from(new Set(citiesForSelect.map(c => c.city)));
 
@@ -146,6 +139,7 @@ const FilterHocMiddle = ({
     if (filteredData?.length > 0) setData3(filteredData);
     setSelectedCity(() => filteredData[0]?.city);
   };
+
   const resetFilters = () => {
     resetMain();
     setSelectedStoreType('');
