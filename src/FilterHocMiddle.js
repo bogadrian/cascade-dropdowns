@@ -51,11 +51,12 @@ const FilterHocMiddle = ({
     );
 
     setSelectedCountry('');
-    setCountries(
-      countriesSelect
-        ?.filter(el => el !== '')
-        .map(c => ({ value: c, label: c }))
-    );
+    if (selectedStoreType !== '')
+      setCountries(
+        countriesSelect
+          ?.filter(el => el !== '')
+          .map(c => ({ value: c, label: c }))
+      );
   }, [selectedStoreType]);
 
   useEffect(() => {
@@ -67,11 +68,12 @@ const FilterHocMiddle = ({
     );
 
     setSelectedProvince('');
-    setProvinces(
-      provincesSelect
-        ?.filter(el => el !== '')
-        .map(c => ({ value: c, label: c }))
-    );
+    if (selectedCountry !== '')
+      setProvinces(
+        provincesSelect
+          ?.filter(el => el !== '')
+          .map(c => ({ value: c, label: c }))
+      );
   }, [selectedCountry]);
 
   useEffect(() => {
@@ -81,7 +83,8 @@ const FilterHocMiddle = ({
     const citiesSelect = Array.from(new Set(citiesForSelect.map(c => c.city)));
 
     setSelectedCity('');
-    setCities(citiesSelect.map(c => ({ value: c, label: c })));
+    if (selectedCity !== '')
+      setCities(citiesSelect.map(c => ({ value: c, label: c })));
   }, [selectedProvince, selectedCountry]);
 
   /********** */
