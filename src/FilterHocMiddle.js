@@ -30,12 +30,18 @@ const FilterHocMiddle = ({
   useEffect(() => {
     setData2(data);
     setData3([]);
+    setStoreTypes([]);
+    setCountries([]);
+    setProvinces([]);
+  }, [data]);
+
+  useEffect(() => {
     const storeTypesForSelect = Array.from(new Set(data.flatMap(s => s.types)));
 
     setSelectedStoreType('');
     setStoreTypes(
       storeTypesForSelect
-        ?.filter(el => el !== '')
+        //  ?.filter(el => el !== '')
         .map(s => ({ value: s, label: s }))
     );
   }, [data]);
