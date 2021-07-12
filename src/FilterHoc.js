@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { SHOPS_FAKE_2 } from './data';
 import FilterHocMiddle from './FilterHocMiddle';
 
@@ -11,7 +11,7 @@ const FilterHoc = () => {
     const initialData = SHOPS_FAKE_2?.filter(el => el.owned);
 
     if (initialData.length > 0) setData(initialData);
-  }, [SHOPS_FAKE_2]);
+  }, [resetMain]);
 
   const handleOnChangeOwned = e => {
     setSearchTerm('');
@@ -40,13 +40,14 @@ const FilterHoc = () => {
     searchTermData?.length > 0 ? setData(searchTermData) : setData([]);
   };
 
-  const resetMain = () => {
+  const resetMain = useCallback(() => {
     setSearchTerm('');
     setOwned('owned');
     const initialData = SHOPS_FAKE_2?.filter(el => el.owned);
 
     if (initialData.length > 0) setData(initialData);
-  };
+  });
+
   return (
     <div>
       {Array.isArray(data) && (

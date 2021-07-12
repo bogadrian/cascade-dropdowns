@@ -41,7 +41,7 @@ const FilterHocMiddle = ({
   }, [data]);
 
   useEffect(() => {
-    const countriesForSelect = data.filter(s => {
+    const countriesForSelect = data2.filter(s => {
       return (
         s.types.includes(selectedStoreType) && s.types[0] === selectedStoreType
       );
@@ -60,7 +60,7 @@ const FilterHocMiddle = ({
   }, [selectedStoreType]);
 
   useEffect(() => {
-    const provincesForSelect = data.filter(el => {
+    const provincesForSelect = data2.filter(el => {
       return el.country.includes(selectedCountry);
     });
     const provincesSelect = Array.from(
@@ -68,23 +68,29 @@ const FilterHocMiddle = ({
     );
 
     setSelectedProvince('');
-    if (selectedCountry !== '')
-      setProvinces(
-        provincesSelect
-          ?.filter(el => el !== '')
-          .map(c => ({ value: c, label: c }))
-      );
+
+    setProvinces(
+      provincesSelect
+        ?.filter(el => el !== '')
+        .map(c => ({ value: c, label: c }))
+    );
   }, [selectedCountry]);
 
   useEffect(() => {
-    const citiesForSelect = data?.filter(el => {
-      return el.province.includes(selectedProvince);
+    const citiesForSelect = data2?.filter(el => {
+      if (el.province) {
+        return el.province.includes(selectedProvince);
+      } else {
+        return el.country === selectedCountry;
+      }
     });
+
+    console.log('pppppp', citiesForSelect);
     const citiesSelect = Array.from(new Set(citiesForSelect.map(c => c.city)));
 
     setSelectedCity('');
-    if (selectedCity !== '')
-      setCities(citiesSelect.map(c => ({ value: c, label: c })));
+
+    setCities(citiesSelect.map(c => ({ value: c, label: c })));
   }, [selectedProvince, selectedCountry]);
 
   /********** */
@@ -132,11 +138,7 @@ const FilterHocMiddle = ({
     const value = e.target.value;
 
     const filteredData = data2.filter(s => {
-      return (
-        s.city.includes(value) &&
-        s.country === selectedCountry &&
-        s.types[0] === selectedStoreType
-      );
+      return s.city.includes(value);
     });
 
     if (filteredData?.length > 0) setData3(filteredData);
