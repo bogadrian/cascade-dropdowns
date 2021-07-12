@@ -110,7 +110,7 @@ const FilterHocMiddle = ({
     const value = e.target.value;
 
     const filteredData = data.filter(s => {
-      return s.country.includes(value);
+      return s.country.includes(value) && s.types[0] === selectedStoreType;
     });
     if (filteredData?.length > 0) setData2(filteredData);
     setSelectedCountry(() => filteredData[0]?.country);
@@ -121,8 +121,9 @@ const FilterHocMiddle = ({
     const value = e.target.value;
 
     const filteredData = data.filter(s => {
-      return s.province.includes(value);
+      return s.province.includes(value) && s.country === selectedCountry;
     });
+
     if (filteredData?.length > 0) setData2(filteredData);
     setSelectedProvince(() => filteredData[0]?.province);
   };
